@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  box-universe-server:
+    container_name: ${CONTAINER_SERVER_NAME}
+    restart: always
+    build:
+      context: ../
+      dockerfile: ./.docker/Dockerfile.dev
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      SALT: ${SALT}
+      NODE_ENV: development
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ../src:/box-universe-server/src/
+    networks:
+      - box_universe

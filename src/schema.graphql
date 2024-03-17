@@ -1,0 +1,151 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthResponse {
+  accessToken: String!
+  user: User!
+}
+
+input AuthorizeInput {
+  password: String!
+  username: String!
+}
+
+type BaseEntity {
+  createdAt: String!
+  id: ID!
+  updatedAt: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Edge {
+  cursor: String!
+  node: User!
+}
+
+input ForgotPasswordInput {
+  email: String!
+}
+
+type ForgotResponse {
+  email: String!
+  success: Boolean!
+}
+
+type Mutation {
+  authorize(input: AuthorizeInput!): AuthResponse!
+  deleteUser(id: String!): [User!]!
+  forgot_password(input: ForgotPasswordInput!): ForgotResponse
+  register(userCreateInput: UserCreateInput!): User
+  updateUser(id: ID!, userUpdateInput: UserUpdateInput!): User!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  totalPages: Float!
+}
+
+type Provider {
+  id: String
+  type: String!
+}
+
+input ProviderCreateInput {
+  id: String
+  type: String
+}
+
+input ProviderNullableCreateEnvelopeInput {
+  set: ProviderCreateInput
+}
+
+input ProviderNullableUpdateEnvelopeInput {
+  set: ProviderCreateInput
+  unset: Boolean
+  upsert: ProviderUpsertInput
+}
+
+input ProviderUpdateInput {
+  id: String
+  type: String
+}
+
+input ProviderUpsertInput {
+  set: ProviderCreateInput!
+  update: ProviderUpdateInput!
+}
+
+type Query {
+  user(id: ID!): User!
+  users(after: String, take: Float!): UserConnection!
+}
+
+type User {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String!
+  id: ID!
+  provider: Provider
+  updatedAt: DateTime
+  username: String!
+}
+
+type UserConnection {
+  edges: [Edge!]!
+  pageInfo: PageInfo!
+}
+
+type UserCountAggregate {
+  _all: Int!
+  createdAt: Int!
+  deletedAt: Int!
+  email: Int!
+  id: Int!
+  updatedAt: Int!
+  username: Int!
+}
+
+input UserCreateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String!
+  id: String
+  password: String!
+  provider: ProviderNullableCreateEnvelopeInput
+  updatedAt: DateTime
+  username: String!
+}
+
+type UserMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: String
+  updatedAt: DateTime
+  username: String
+}
+
+type UserMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: String
+  updatedAt: DateTime
+  username: String
+}
+
+input UserUpdateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  password: String
+  provider: ProviderNullableUpdateEnvelopeInput
+  updatedAt: DateTime
+  username: String
+}

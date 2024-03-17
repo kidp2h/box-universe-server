@@ -1,0 +1,9 @@
+FROM node:alpine3.19
+ENV NODE_ENV=development
+WORKDIR /box-universe-server
+COPY ./ ./
+RUN npm install -g pnpm@8.15.4
+RUN pnpm install
+RUN pnpm prisma:generate
+CMD ["pnpm", "start:dev"]
+

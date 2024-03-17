@@ -1,0 +1,50 @@
+//
+// base.prisma
+//
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+generator nestgraphql {
+  provider               = "prisma-nestjs-graphql"
+  // for yarn monorepos
+  // provider = "prisma-nestjs-graphql"
+  output                 = "../src/common/types/graphql/@generated"
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
+  noAtomicOperations     = true
+  reExport               = Directories
+  // requireSingleFieldsInWhereUniqueInput = true./
+  // emitSingle                            = true
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+//
+// user.prisma
+//
+
+model User {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  /// @Validator.Length(6, 20)
+  username  String    @unique
+  /// @HideField()
+  /// @Validator.Length(6)
+  password  String
+  /// @Validator.IsEmail()
+  email     String    @unique
+  provider  Provider?
+  deletedAt DateTime?
+  createdAt DateTime? @default(now())
+  updatedAt DateTime?
+}
+
+type Provider {
+  id   String?
+  type String  @default("local")
+}

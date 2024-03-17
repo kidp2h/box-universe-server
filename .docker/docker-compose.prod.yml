@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  box-universe-server:
+    container_name: ${CONTAINER_NAME}
+    restart: always
+    env_file:
+      - ../.env
+    build:
+      context: ./
+      dockerfile: ./server/docker/Dockerfile.prod
+    environment:
+      PORT: ${PORT}
+      NODE_ENV: production
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ../src:/box-universe-server/src/
